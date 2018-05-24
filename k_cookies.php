@@ -26,12 +26,8 @@ class k_Cookies extends Module
 
         parent::__construct();
 
-        $this->displayName = $this->trans('Comply to the European cookie law', array(), 'Modules.k_goodie.Admin');
-        $this->description = $this->trans(
-            'Comply to the european cookie law with the french tarte au citron.',
-            array(),
-            'Modules.k_content.Admin'
-        );
+        $this->displayName = $this->l('Comply to the European cookie law');
+        $this->description = $this->l('Comply to the european cookie law with the french tarte au citron.');
         $this->ps_versions_compliancy = array('min' => '1.7.0.0', 'max' => _PS_VERSION_);
     }
 
