@@ -1,20 +1,26 @@
 # GDPR cookie bar Module 
 
+#####The master branch is reserved to 1.7, 1.6 branch is available if needed
 
 this module allow your users to managed cookie by cookie.
 
 This addon has been created with tarteaucitron.js script
-https://github.com/AmauriC/tarteaucitron.js
-Somes services need extra contentes, please read the documentation before activate any service
+https://github.com/AmauriC/tarteaucitron.js 
+
+Some services need extra contents, please read the documentation before activate any service
 https://opt-out.ferank.eu/en/install/
 
-tested on Prestashop 1.7 with php7.1
+This module use Material Icon
+
+tested on Prestashop 1.7 / php7.1 / bootstrap 4.1
+
+Add this line into ps_linklist module custom link if you want open modal from footer
+`javascript:tarteaucitron.userInterface.openPanel();`
 
 # Tested services
 
 
-Ads 
---------
+###Ads 
 
 - [ ] Google Adsense
 - [ ] Google Adsense Search (form)
@@ -35,8 +41,7 @@ Ads
 - [ ] Twenga
 - [ ] vShop
 
-Analytics
---------
+###Analytics
 
 - [ ] Alexa
 - [ ] Clicky
@@ -57,8 +62,7 @@ Analytics
 - [ ] Xiti
 - [ ] Xiti (SmartTag)
 
-Apis
---------
+###Apis
 
 - [ ] Google jsapi
 - [ ] Google Maps
@@ -66,14 +70,12 @@ Apis
 - [ ] Timeline JS
 - [ ] Typekit (adobe)
 
-Comments
---------
+###Comments
 
 - [ ] Disqus
 - [ ] Facebook (commentaire)
 
-Socials
---------
+###Socials
 
 - [ ] AddThis
 - [ ] AddToAny (feed) 
@@ -91,14 +93,14 @@ Socials
 - [ ] Twitter (cards)
 - [ ] Twitter (timelines)
 
-Supports
---------
+###Supports
+
 - [ ] PureChat
 - [ ] UserVoice
 - [ ] Zopim
 
-Videos
---------
+###Videos
+
 - [ ] Calameo
 - [ ] Dailymotion
 - [ ] Prezi
@@ -107,8 +109,8 @@ Videos
 - [ ] YouTube
 - [ ] YouTube (playlist)
 
-Others
---------
+###Others
+
 - [ ] Iframe
 
 		
@@ -116,6 +118,4 @@ Others
 --------
 
 - [ ] Use prestashop translate system instead of javascript file
-- [ ] check compatibility with prestashop 1.6
-- [ ] add php5.6 compatibility
 - [ ] change hotjar JS function to look like tarteaucitron style
