@@ -115,15 +115,6 @@
   z-index: 2147483647;
 }
 
-#tarteaucitron i.priorityHigh {
-  font-size: 18px;
-  transform: rotate(180deg);
-  border: 1px solid #fff;
-  border-radius: 50%;
-  line-height: 17px;
-  text-align: center;
-}
-
 #tarteaucitron .tarteaucitronBorder {
   background: #fff;
   border: 2px solid #333;
@@ -175,15 +166,6 @@
   padding: 5px 20px;
   text-align: left;
   width: auto;
-}
-
-#tarteaucitron #tarteaucitronServices .tarteaucitronTitle i.priorityHigh {
-  font-size: 10px;
-  padding: 1px 1px 1px 1px;
-  line-height: 9px;
-  width: 14px;
-  height: 14px;
-
 }
 
 #tarteaucitron #tarteaucitronServices .tarteaucitronMainLine .tarteaucitronName a,
@@ -258,14 +240,6 @@
 #tarteaucitron #tarteaucitronServices .tarteaucitronMainLine .tarteaucitronName {
   margin-left: 15px;
   margin-top: 2px;
-}
-
-#tarteaucitron #tarteaucitronServices .tarteaucitronMainLine .tarteaucitronName i.priorityHigh {
-  line-height: 20px;
-  text-align: center;
-  padding: 0;
-  width: 24px;
-  height: 24px;;
 }
 
 #tarteaucitron #tarteaucitronServices .tarteaucitronMainLine .tarteaucitronName b {

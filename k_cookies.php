@@ -21,14 +21,14 @@ class k_Cookies extends Module
         $this->version = '1.0.0';
         $this->author = 'Kadolis';
         $this->need_instance = 0;
-        $this->secure_key = Tools::hash($this->name);
+        $this->secure_key = Tools::encrypt($this->name);
         $this->bootstrap = true;
 
         parent::__construct();
 
         $this->displayName = $this->l('Comply to the European cookie law');
         $this->description = $this->l('Comply to the european cookie law with the french tarte au citron.');
-        $this->ps_versions_compliancy = array('min' => '1.7.0.0', 'max' => _PS_VERSION_);
+        $this->ps_versions_compliancy = array('min' => '1.6.1.0', 'max' => _PS_VERSION_);
     }
 
     /**
@@ -294,7 +294,7 @@ class k_Cookies extends Module
             'iframe',
         ];
 
-        $return .= $this->fetch($this->local_path.'/views/templates/admin/configure.tpl');
+        $return .= $this->display(__FILE__, 'views/templates/admin/configure.tpl');
 
         $return .= '<div class="row">';
         $return .= '<div class="tab-content col-lg-12 col-md-9">';
@@ -392,7 +392,7 @@ class k_Cookies extends Module
             $cookie->save();
         }
 
-        return (count($this->_errors) ? $this->displayError($this->_errors) : $this->displayConfirmation($this->trans('The settings have been updated.', array(), 'Admin.Notifications.Success')));
+        return count($this->_errors) ? $this->displayError($this->_errors) : $this->displayConfirmation($this->l('The settings have been updated.'));
     }
 
     /**
@@ -462,12 +462,12 @@ class k_Cookies extends Module
                             array(
                                 'id' => 'highprivacy_on',
                                 'value' => 1,
-                                'label' => $this->trans('Yes', array(), 'Admin.Global'),
+                                'label' => $this->l('Yes'),
                             ),
                             array(
                                 'id' => 'highprivacy_off',
                                 'value' => 0,
-                                'label' => $this->trans('No', array(), 'Admin.Global'),
+                                'label' => $this->l('No'),
                             ),
                         ),
                     ),
@@ -494,12 +494,12 @@ class k_Cookies extends Module
                             array(
                                 'id' => 'adblocker_on',
                                 'value' => 1,
-                                'label' => $this->trans('Yes', array(), 'Admin.Global'),
+                                'label' => $this->l('Yes'),
                             ),
                             array(
                                 'id' => 'adblocker_off',
                                 'value' => 0,
-                                'label' => $this->trans('No', array(), 'Admin.Global'),
+                                'label' => $this->l('No'),
                             ),
                         ),
                     ),
@@ -514,12 +514,12 @@ class k_Cookies extends Module
                             array(
                                 'id' => 'showalertamall_on',
                                 'value' => 1,
-                                'label' => $this->trans('Yes', array(), 'Admin.Global'),
+                                'label' => $this->l('Yes'),
                             ),
                             array(
                                 'id' => 'ashowalertamall_off',
                                 'value' => 0,
-                                'label' => $this->trans('No', array(), 'Admin.Global'),
+                                'label' => $this->l('No'),
                             ),
                         ),
                     ),
@@ -534,12 +534,12 @@ class k_Cookies extends Module
                             array(
                                 'id' => 'cookieslist_on',
                                 'value' => 1,
-                                'label' => $this->trans('Yes', array(), 'Admin.Global'),
+                                'label' => $this->l('Yes'),
                             ),
                             array(
                                 'id' => 'cookieslist_off',
                                 'value' => 0,
-                                'label' => $this->trans('No', array(), 'Admin.Global'),
+                                'label' => $this->l('No'),
                             ),
                         ),
                     ),
@@ -554,12 +554,12 @@ class k_Cookies extends Module
                             array(
                                 'id' => 'removecredit_on',
                                 'value' => 1,
-                                'label' => $this->trans('Yes', array(), 'Admin.Global'),
+                                'label' => $this->l('Yes'),
                             ),
                             array(
                                 'id' => 'removecredit_off',
                                 'value' => 0,
-                                'label' => $this->trans('No', array(), 'Admin.Global'),
+                                'label' => $this->l('No'),
                             ),
                         ),
                     ),
@@ -595,7 +595,7 @@ class k_Cookies extends Module
                     ),
                 ),
                 'submit' => array(
-                    'title' => $this->getTranslator()->trans('Save', array(), 'Admin.Actions'),
+                    'title' =>$this->l('Save'),
                 ),
             ),
         );
@@ -658,19 +658,19 @@ class k_Cookies extends Module
             ),
             array(
                 'type' => 'switch',
-                'label' => $this->getTranslator()->trans('Enabled', array(), 'Admin.Global'),
+                'label' => $this->l('Enabled'),
                 'name' => $service.'_active',
                 'is_bool' => true,
                 'values' => array(
                     array(
                         'id' => $service.'_on',
                         'value' => 1,
-                        'label' => $this->getTranslator()->trans('Yes', array(), 'Admin.Global'),
+                        'label' => $this->l('Yes'),
                     ),
                     array(
                         'id' => $service.'_off',
                         'value' => 0,
-                        'label' => $this->getTranslator()->trans('No', array(), 'Admin.Global'),
+                        'label' => $this->l('No'),
                     ),
                 ),
             ),
@@ -687,7 +687,7 @@ class k_Cookies extends Module
                 ),
                 'input' => array_merge($inputs,$consts),
                 'submit' => array(
-                    'title' => $this->getTranslator()->trans('Save', array(), 'Admin.Actions'),
+                    'title' => $this->l('Save', array(), 'Admin.Actions'),
                 ),
             ),
         );
@@ -1809,8 +1809,8 @@ class k_Cookies extends Module
      */
     public function hookdisplayHeader($params)
     {
-        $this->context->controller->registerJavascript($this->name, 'modules/'.$this->name.'/views/js/tarteaucitron.js', ['position' => 'head', 'priority' => 150]);
-        $this->context->controller->registerStylesheet($this->name, 'modules/'.$this->name.'/views/css/tarteaucitron.css', ['media' => 'all', 'priority' => 150]);
+        $this->context->controller->addJS(_MODULE_DIR_.$this->name.'/views/js/tarteaucitron.js');
+        $this->context->controller->addCSS(_MODULE_DIR_.$this->name.'/views/css/tarteaucitron.css');
 
         $shops = Shop::getShops();
         $is_multistore_active = Shop::isFeatureActive();
