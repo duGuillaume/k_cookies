@@ -595,7 +595,7 @@ class k_Cookies extends Module
                     ),
                 ),
                 'submit' => array(
-                    'title' => $this->getTranslator()->trans('Save', array(), 'Admin.Actions'),
+                    'title' => $this->trans('Save', array(), 'Admin.Actions'),
                 ),
             ),
         );
@@ -658,19 +658,19 @@ class k_Cookies extends Module
             ),
             array(
                 'type' => 'switch',
-                'label' => $this->getTranslator()->trans('Enabled', array(), 'Admin.Global'),
+                'label' => $this->trans('Enabled', array(), 'Admin.Global'),
                 'name' => $service.'_active',
                 'is_bool' => true,
                 'values' => array(
                     array(
                         'id' => $service.'_on',
                         'value' => 1,
-                        'label' => $this->getTranslator()->trans('Yes', array(), 'Admin.Global'),
+                        'label' => $this->trans('Yes', array(), 'Admin.Global'),
                     ),
                     array(
                         'id' => $service.'_off',
                         'value' => 0,
-                        'label' => $this->getTranslator()->trans('No', array(), 'Admin.Global'),
+                        'label' => $this->trans('No', array(), 'Admin.Global'),
                     ),
                 ),
             ),
@@ -687,7 +687,7 @@ class k_Cookies extends Module
                 ),
                 'input' => array_merge($inputs,$consts),
                 'submit' => array(
-                    'title' => $this->getTranslator()->trans('Save', array(), 'Admin.Actions'),
+                    'title' => $this->trans('Save', array(), 'Admin.Actions'),
                 ),
             ),
         );

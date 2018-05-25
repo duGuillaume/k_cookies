@@ -405,7 +405,9 @@ var tarteaucitron = {
       html += '<div id="' + service.key + 'Line" class="tarteaucitronLine">';
       html += '   <div class="tarteaucitronName">';
       html += '       <b>' + service.name + '</b><br/>';
-      html += '       <span id="tacCL' + service.key + '" class="tarteaucitronListCookies"></span><br/>';
+      if (tarteaucitron.parameters.cookieslist === true){
+        html += '       <span id="tacCL' + service.key + '" class="tarteaucitronListCookies"></span><br/>';
+      }
       if (tarteaucitron.parameters.removeCredit === false) {
         html += '       <a href="' + service.uri + '" target="_blank" rel="noopener">';
         html += '           ' + tarteaucitron.lang.source;
