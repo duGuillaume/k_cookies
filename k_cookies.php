@@ -18,7 +18,7 @@ class k_Cookies extends Module
     {
         $this->name = 'k_cookies';
         $this->tab = 'front_office_features';
-        $this->version = '1.0.1';
+        $this->version = '1.0.2';
         $this->author = 'Kadolis';
         $this->need_instance = 0;
         $this->secure_key = Tools::hash($this->name);
@@ -76,35 +76,47 @@ class k_Cookies extends Module
         $ret = true;
         $services = $this->listServices();
         foreach ($services as $key => $service){
-            $json = array();
-            $fields = $this->{"get{$key}Fields"}();
-            foreach ($fields as $inputs){
-                if(is_array($inputs)){
-                    foreach ($inputs as $field){
-                        $pattern = '/config\[(\w+)\]/i';
-                        $replacement = '${1}';
-                        $name = preg_replace($pattern, $replacement, $field['name']);
-                        switch ($field['type']){
-                            case 'text':
-                                $json[$name] = '';
-                                break;
-                            case 'switch':
-                                $json[$name] = 0;
-                                break;
-                        }
-                    }
-                }
-            }
+
+            $data = $this->createServiceData($key);
 
             $ret &= Db::getInstance()->Execute('INSERT INTO `'._DB_PREFIX_.'k_cookies` SET 
             `name` = "'. pSQL($key).'",
-            `config` = \''. json_encode (!empty($json) ? $json : new stdClass).'\',
+            `config` = \''. json_encode (!empty($data) ? $data : new stdClass).'\',
             `date_add` = NOW(),
             `date_upd` = NOW()
             ');
         }
 
         return $ret;
+    }
+
+    /**
+     * Create service data from get{$service}Fields
+     *
+     * @param $service
+     * @return array
+     */
+    public function createServiceData($service){
+        $json = array();
+        $fields = $this->{"get{$service}Fields"}();
+        foreach ($fields as $inputs){
+            if(is_array($inputs)){
+                foreach ($inputs as $field){
+                    $pattern = '/config\[(\w+)\]/i';
+                    $replacement = '${1}';
+                    $name = preg_replace($pattern, $replacement, $field['name']);
+                    switch ($field['type']){
+                        case 'text':
+                            $json[$name] = '';
+                            break;
+                        case 'switch':
+                            $json[$name] = 0;
+                            break;
+                    }
+                }
+            }
+        }
+        return $json;
     }
 
     /**
@@ -254,6 +266,7 @@ class k_Cookies extends Module
             'jsapi',
             'googlemaps',
             'googletagmanager',
+            'recaptcha',
             'timelinejs',
             'typekit',
         ];
@@ -1315,6 +1328,17 @@ class k_Cookies extends Module
         );
 
         return ['legend' => $legend, 'inputs' => $inputs];
+    }
+
+    /**
+     * Get Google Tag Manager Fields
+     * @return array
+     */
+    protected function getReCaptchaFields()
+    {
+        $legend = $this->l('reCAPTCHA');
+
+        return ['legend' => $legend, 'inputs' => []];
     }
 
     /**
