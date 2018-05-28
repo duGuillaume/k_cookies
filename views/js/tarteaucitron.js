@@ -876,10 +876,11 @@ var tarteaucitron = {
         expireTime = time + 31536000000, // 365 days
         regex = new RegExp("!" + key + "=(wait|true|false)", "g"),
         cookie = tarteaucitron.cookie.read().replace(regex, ""),
-        value = 'tarteaucitron=' + cookie + '!' + key + '=' + status;
+        value = 'tarteaucitron=' + cookie + '!' + key + '=' + status,
+        domain = (tarteaucitron.parameters.cookieDomain !== undefined && tarteaucitron.parameters.cookieDomain !== '') ? 'domain=' + tarteaucitron.parameters.cookieDomain + ';' : '';
 
       d.setTime(expireTime);
-      document.cookie = value + '; expires=' + d.toGMTString() + '; path=/;';
+      document.cookie = value + '; expires=' + d.toGMTString() + '; path=/;' + domain;
     },
     "read": function () {
       "use strict";

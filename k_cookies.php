@@ -18,7 +18,7 @@ class k_Cookies extends Module
     {
         $this->name = 'k_cookies';
         $this->tab = 'front_office_features';
-        $this->version = '1.0.0';
+        $this->version = '1.0.2';
         $this->author = 'Kadolis';
         $this->need_instance = 0;
         $this->secure_key = Tools::encrypt($this->name);
@@ -76,35 +76,47 @@ class k_Cookies extends Module
         $ret = true;
         $services = $this->listServices();
         foreach ($services as $key => $service){
-            $json = array();
-            $fields = $this->{"get{$key}Fields"}();
-            foreach ($fields as $inputs){
-                if(is_array($inputs)){
-                    foreach ($inputs as $field){
-                        $pattern = '/config\[(\w+)\]/i';
-                        $replacement = '${1}';
-                        $name = preg_replace($pattern, $replacement, $field['name']);
-                        switch ($field['type']){
-                            case 'text':
-                                $json[$name] = '';
-                                break;
-                            case 'switch':
-                                $json[$name] = 0;
-                                break;
-                        }
-                    }
-                }
-            }
+
+            $data = $this->createServiceData($key);
 
             $ret &= Db::getInstance()->Execute('INSERT INTO `'._DB_PREFIX_.'k_cookies` SET 
             `name` = "'. pSQL($key).'",
-            `config` = \''. json_encode (!empty($json) ? $json : new stdClass).'\',
+            `config` = \''. json_encode (!empty($data) ? $data : new stdClass).'\',
             `date_add` = NOW(),
             `date_upd` = NOW()
             ');
         }
 
         return $ret;
+    }
+
+    /**
+     * Create service data from get{$service}Fields
+     *
+     * @param $service
+     * @return array
+     */
+    public function createServiceData($service){
+        $json = array();
+        $fields = $this->{"get{$service}Fields"}();
+        foreach ($fields as $inputs){
+            if(is_array($inputs)){
+                foreach ($inputs as $field){
+                    $pattern = '/config\[(\w+)\]/i';
+                    $replacement = '${1}';
+                    $name = preg_replace($pattern, $replacement, $field['name']);
+                    switch ($field['type']){
+                        case 'text':
+                            $json[$name] = '';
+                            break;
+                        case 'switch':
+                            $json[$name] = 0;
+                            break;
+                    }
+                }
+            }
+        }
+        return $json;
     }
 
     /**
@@ -121,6 +133,7 @@ class k_Cookies extends Module
             Configuration::updateValue($this->prefix.'showAlertSmall',0) &&
             Configuration::updateValue($this->prefix.'cookieslist',1) &&
             Configuration::updateValue($this->prefix.'removeCredit',0) &&
+            Configuration::updateValue($this->prefix.'cookieDomain','') &&
             Configuration::updateValue($this->prefix.'btnDisabledColor','#808080') &&
             Configuration::updateValue($this->prefix.'btnAllowColor','#1B870B') &&
             Configuration::updateValue($this->prefix.'btnDenyColor','#9C1A1A') &&
@@ -146,6 +159,7 @@ class k_Cookies extends Module
             Configuration::deleteByName($this->prefix.'showAlertSmall') &&
             Configuration::deleteByName($this->prefix.'cookieslist') &&
             Configuration::deleteByName($this->prefix.'removeCredit') &&
+            Configuration::deleteByName($this->prefix.'cookieDomain') &&
             Configuration::deleteByName($this->prefix.'btnDisabledColor') &&
             Configuration::deleteByName($this->prefix.'btnAllowColor') &&
             Configuration::deleteByName($this->prefix.'btnDenyColor') &&
@@ -252,6 +266,7 @@ class k_Cookies extends Module
             'jsapi',
             'googlemaps',
             'googletagmanager',
+            'recaptcha',
             'timelinejs',
             'typekit',
         ];
@@ -374,6 +389,7 @@ class k_Cookies extends Module
             Configuration::updateValue($this->prefix.'showAlertSmall', Tools::getValue($this->prefix.'showAlertSmall'));
             Configuration::updateValue($this->prefix.'cookieslist', Tools::getValue($this->prefix.'cookieslist'));
             Configuration::updateValue($this->prefix.'removeCredit', Tools::getValue($this->prefix.'removeCredit'));
+            Configuration::updateValue($this->prefix.'cookieDomain', Tools::getValue($this->prefix.'cookieDomain'));
             Configuration::updateValue($this->prefix.'btnDisabledColor', Tools::getValue($this->prefix.'btnDisabledColor','#808080'));
             Configuration::updateValue($this->prefix.'btnAllowColor', Tools::getValue($this->prefix.'btnAllowColor','#1B870B'));
             Configuration::updateValue($this->prefix.'btnDenyColor', Tools::getValue($this->prefix.'btnDenyColor','#9C1A1A'));
@@ -564,6 +580,12 @@ class k_Cookies extends Module
                         ),
                     ),
                     array(
+                        'type' => 'text',
+                        'label' => $this->l('Cookie Domain'),
+                        'name' => $this->prefix.'cookieDomain',
+                        'hint' =>$this->l('Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif'),
+                    ),
+                    array(
                         'type' => 'color',
                         'label' => $this->l('Button disabled color'),
                         'name' => $this->prefix.'btnDisabledColor',
@@ -609,6 +631,7 @@ class k_Cookies extends Module
             $this->prefix.'showAlertSmall' => Configuration::get($this->prefix.'showAlertSmall'),
             $this->prefix.'cookieslist' => Configuration::get($this->prefix.'cookieslist'),
             $this->prefix.'removeCredit' => Configuration::get($this->prefix.'removeCredit'),
+            $this->prefix.'cookieDomain' => Configuration::get($this->prefix.'cookieDomain'),
             $this->prefix.'btnDisabledColor' => Configuration::get($this->prefix.'btnDisabledColor'),
             $this->prefix.'btnAllowColor' => Configuration::get($this->prefix.'btnAllowColor'),
             $this->prefix.'btnDenyColor' => Configuration::get($this->prefix.'btnDenyColor'),
@@ -1308,6 +1331,17 @@ class k_Cookies extends Module
     }
 
     /**
+     * Get Google Tag Manager Fields
+     * @return array
+     */
+    protected function getReCaptchaFields()
+    {
+        $legend = $this->l('reCAPTCHA');
+
+        return ['legend' => $legend, 'inputs' => []];
+    }
+
+    /**
      * Get Google+ Fields
      * @return array
      */
@@ -1825,6 +1859,7 @@ class k_Cookies extends Module
             'showAlertSmall' => Configuration::get($this->prefix.'showAlertSmall'),
             'cookieslist' => Configuration::get($this->prefix.'cookieslist'),
             'removeCredit' => Configuration::get($this->prefix.'removeCredit'),
+            'cookieDomain' => Configuration::get($this->prefix.'cookieDomain'),
             'btnDisabledColor' => Configuration::get($this->prefix.'btnDisabledColor'),
             'btnAllowColor' => Configuration::get($this->prefix.'btnAllowColor'),
             'btnDenyColor' => Configuration::get($this->prefix.'btnDenyColor'),
