@@ -10,8 +10,8 @@ $_MODULE['<{k_cookies}prestashop>k_cookies.script_19d1fff2e0cbea5a0f720c5de59057
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_04f20185b2066c640cbea6afdf516d5e'] = 'povolujete všechny služby třetích stran.';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_57d006e6507e0438f52d01dcb57e7fe5'] = 'Tato stránka využívá cookies a dává ti na výběr, co chceš aktivovat';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_3bd34394db106447b9320c76b26ddbb5'] = 'Spravovat služby';
-$_MODULE['<{k_cookies}prestashop>k_cookies.script_c6dcf30c87abe440b5db8a0950b746f6'] = 'OK, přijmout vše';
-$_MODULE['<{k_cookies}prestashop>k_cookies.script_68e235f3e89030cad3efb47283d06744'] = 'Přizpůsobit';
+$_MODULE['<{k_cookies}prestashop>k_cookies.script_c6dcf30c87abe440b5db8a0950b746f6'] = 'Přizpůsobit';
+$_MODULE['<{k_cookies}prestashop>k_cookies.script_68e235f3e89030cad3efb47283d06744'] = 'OK, přijmout vše';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_d3d2e617335f08df83599665eef8a418'] = 'Zavřít';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_954379470f05543b8013be367a4d57b2'] = 'Nastavení všech služeb';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_7aa6039645d4f91c0aa7432ce93fde00'] = 'Chrání tvé soukromí';

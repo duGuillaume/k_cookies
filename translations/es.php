@@ -10,8 +10,8 @@ $_MODULE['<{k_cookies}prestashop>k_cookies.script_19d1fff2e0cbea5a0f720c5de59057
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_04f20185b2066c640cbea6afdf516d5e'] = 'estar permitiendo servicios terceros';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_57d006e6507e0438f52d01dcb57e7fe5'] = 'Este sitio web usa cookies y te permite controlar lo que deseas activar';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_3bd34394db106447b9320c76b26ddbb5'] = 'Gestionar servicios';
-$_MODULE['<{k_cookies}prestashop>k_cookies.script_c6dcf30c87abe440b5db8a0950b746f6'] = 'OK, aceptar todas';
-$_MODULE['<{k_cookies}prestashop>k_cookies.script_68e235f3e89030cad3efb47283d06744'] = 'Personalizar';
+$_MODULE['<{k_cookies}prestashop>k_cookies.script_c6dcf30c87abe440b5db8a0950b746f6'] = 'Personalizar';
+$_MODULE['<{k_cookies}prestashop>k_cookies.script_68e235f3e89030cad3efb47283d06744'] = 'OK, aceptar todas';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_d3d2e617335f08df83599665eef8a418'] = 'Cerrar';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_954379470f05543b8013be367a4d57b2'] = 'Ajustes para todos los servicios';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_7aa6039645d4f91c0aa7432ce93fde00'] = 'Protegiendo tu privacidad';
