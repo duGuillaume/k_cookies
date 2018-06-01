@@ -26,7 +26,7 @@ $_MODULE['<{k_cookies}prestashop>k_cookies.script_43340e6cc4e88197d57f8d6d5ea50a
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_848a090ea81be0d54f019dab8916278e'] = 'Voir le site officiel';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_788d3c03d425762aec0256c845071215'] = 'Gestion des cookies';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_d8249f0d9639b97f37d0d3109142ddcf'] = 'est désactivé.';
-$_MODULE['<{k_cookies}prestashop>k_cookies.script_ee9419994242c3813b79f6ae831da13f'] = 'Aide au ciblage publicitaire';
+$_MODULE['<{k_cookies}prestashop>k_cookies.script_ee9419994242c3813b79f6ae831da13f'] = 'Régies publicitaires';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_d73594e9a11ba784a1d7449c2c3edbfc'] = 'Les régies publicitaires permettent de générer des revenus en commercialisant les espaces publicitaires du site.';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_576e2e42d93c11ade176d156dc06487e'] = 'Mesure d\'audience';
 $_MODULE['<{k_cookies}prestashop>k_cookies.script_bc7435f127e74f64f8706771f91cd643'] = 'Les services de mesure d\'audience permettent de générer des statistiques de fréquentation utiles à l\'amélioration du site.';
