@@ -67,6 +67,7 @@ Add this line into ps_linklist module custom link if you want open modal from fo
 - [ ] Google jsapi
 - [ ] Google Maps
 - [ ] Google Tag Manager
+- [x] reCAPTCHA
 - [ ] Timeline JS
 - [ ] Typekit (adobe)
 
@@ -116,6 +117,4 @@ Add this line into ps_linklist module custom link if you want open modal from fo
 		
 @TODO
 --------
-
-- [ ] Use prestashop translate system instead of javascript file
 - [ ] change hotjar JS function to look like tarteaucitron style
