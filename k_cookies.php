@@ -18,7 +18,7 @@ class k_Cookies extends Module
     {
         $this->name = 'k_cookies';
         $this->tab = 'front_office_features';
-        $this->version = '1.0.2';
+        $this->version = '1.1.0';
         $this->author = 'Kadolis';
         $this->need_instance = 0;
         $this->secure_key = Tools::encrypt($this->name);
