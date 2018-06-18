@@ -3,6 +3,8 @@
 
 this module allow your users to managed cookie by cookie.
 
+Unzip archive into your modules folder and rename folder to 'k_cookies' if necessary
+
 This addon has been created with tarteaucitron.js script
 https://github.com/AmauriC/tarteaucitron.js 
 
