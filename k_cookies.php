@@ -18,7 +18,7 @@ class k_Cookies extends Module
     {
         $this->name = 'k_cookies';
         $this->tab = 'front_office_features';
-        $this->version = '1.1.0';
+        $this->version = '1.1.1';
         $this->author = 'Kadolis';
         $this->need_instance = 0;
         $this->secure_key = Tools::hash($this->name);
@@ -133,6 +133,7 @@ class k_Cookies extends Module
             Configuration::updateValue($this->prefix.'showAlertSmall',0) &&
             Configuration::updateValue($this->prefix.'cookieslist',1) &&
             Configuration::updateValue($this->prefix.'removeCredit',0) &&
+            Configuration::updateValue($this->prefix.'handleBrowserDNTRequest',0) &&
             Configuration::updateValue($this->prefix.'cookieDomain','') &&
             Configuration::updateValue($this->prefix.'btnDisabledColor','#808080') &&
             Configuration::updateValue($this->prefix.'btnAllowColor','#1B870B') &&
@@ -159,6 +160,7 @@ class k_Cookies extends Module
             Configuration::deleteByName($this->prefix.'showAlertSmall') &&
             Configuration::deleteByName($this->prefix.'cookieslist') &&
             Configuration::deleteByName($this->prefix.'removeCredit') &&
+            Configuration::deleteByName($this->prefix.'handleBrowserDNTRequest') &&
             Configuration::deleteByName($this->prefix.'cookieDomain') &&
             Configuration::deleteByName($this->prefix.'btnDisabledColor') &&
             Configuration::deleteByName($this->prefix.'btnAllowColor') &&
@@ -226,6 +228,9 @@ class k_Cookies extends Module
             'adsense',
             'adsensesearchform',
             'adsensesearchresult',
+            'aduptechads',
+            'aduptechconversion',
+            'aduptechretargeting',
             'amazon',
             'clicmanager',
             'criteo',
@@ -253,8 +258,10 @@ class k_Cookies extends Module
             'getplus',
             'gtag',
             'hotjar',
+            'matomo',
             'mautic',
             'microsoftcampaignanalytics',
+            'multiplegtag',
             'statcounter',
             'visualrevenue',
             'webmecanik',
@@ -265,6 +272,7 @@ class k_Cookies extends Module
         $apis = [
             'jsapi',
             'googlemaps',
+            'googlemapssearch',
             'googletagmanager',
             'recaptcha',
             'timelinejs',
@@ -307,6 +315,7 @@ class k_Cookies extends Module
         ];
         $others = [
             'iframe',
+            'issuu',
         ];
 
         $return .= $this->fetch($this->local_path.'/views/templates/admin/configure.tpl');
@@ -389,6 +398,7 @@ class k_Cookies extends Module
             Configuration::updateValue($this->prefix.'showAlertSmall', Tools::getValue($this->prefix.'showAlertSmall'));
             Configuration::updateValue($this->prefix.'cookieslist', Tools::getValue($this->prefix.'cookieslist'));
             Configuration::updateValue($this->prefix.'removeCredit', Tools::getValue($this->prefix.'removeCredit'));
+            Configuration::updateValue($this->prefix.'handleBrowserDNTRequest', Tools::getValue($this->prefix.'handleBrowserDNTRequest'));
             Configuration::updateValue($this->prefix.'cookieDomain', Tools::getValue($this->prefix.'cookieDomain'));
             Configuration::updateValue($this->prefix.'btnDisabledColor', Tools::getValue($this->prefix.'btnDisabledColor','#808080'));
             Configuration::updateValue($this->prefix.'btnAllowColor', Tools::getValue($this->prefix.'btnAllowColor','#1B870B'));
@@ -580,6 +590,26 @@ class k_Cookies extends Module
                         ),
                     ),
                     array(
+                        'type' => 'switch',
+                        'label' => $this->l('Handle browser Do Not Track request'),
+                        'name' => $this->prefix.'handleBrowserDNTRequest',
+                        'hint' => $this->l('Répondre au DoNotTrack du navigateur ?'),
+                        'required' => true,
+                        'is_bool' => true,
+                        'values' => array(
+                            array(
+                                'id' => 'handlebrowserdntrequest_on',
+                                'value' => 1,
+                                'label' => $this->trans('Yes', array(), 'Admin.Global'),
+                            ),
+                            array(
+                                'id' => 'handlebrowserdntrequest_off',
+                                'value' => 0,
+                                'label' => $this->trans('No', array(), 'Admin.Global'),
+                            ),
+                        ),
+                    ),
+                    array(
                         'type' => 'text',
                         'label' => $this->l('Cookie Domain'),
                         'name' => $this->prefix.'cookieDomain',
@@ -631,6 +661,7 @@ class k_Cookies extends Module
             $this->prefix.'showAlertSmall' => Configuration::get($this->prefix.'showAlertSmall'),
             $this->prefix.'cookieslist' => Configuration::get($this->prefix.'cookieslist'),
             $this->prefix.'removeCredit' => Configuration::get($this->prefix.'removeCredit'),
+            $this->prefix.'handleBrowserDNTRequest' => Configuration::get($this->prefix.'handleBrowserDNTRequest'),
             $this->prefix.'cookieDomain' => Configuration::get($this->prefix.'cookieDomain'),
             $this->prefix.'btnDisabledColor' => Configuration::get($this->prefix.'btnDisabledColor'),
             $this->prefix.'btnAllowColor' => Configuration::get($this->prefix.'btnAllowColor'),
@@ -796,6 +827,36 @@ class k_Cookies extends Module
     protected function getAddToAnyShareFields()
     {
         $legend = $this->l('AddToAny (share)');
+        return ['legend' => $legend, 'inputs' => []];
+    }
+
+    /**
+     * Get Ad Up Technology (ads) Fields
+     * @return array
+     */
+    protected function getAdUpTechAdsFields()
+    {
+        $legend = $this->l('Ad Up Technology (ads)');
+        return ['legend' => $legend, 'inputs' => []];
+    }
+
+    /**
+     * Get Ad Up Technology (conversion) Fields
+     * @return array
+     */
+    protected function getAdUpTechConversionFields()
+    {
+        $legend = $this->l('Ad Up Technology (conversion)');
+        return ['legend' => $legend, 'inputs' => []];
+    }
+
+    /**
+     * Get Ad Up Technology (ads) Fields
+     * @return array
+     */
+    protected function getAdUpTechRetargetingFields()
+    {
+        $legend = $this->l('Ad Up Technology (retargeting)');
         return ['legend' => $legend, 'inputs' => []];
     }
 
@@ -1301,6 +1362,16 @@ class k_Cookies extends Module
     }
 
     /**
+     * Get Google Maps Search Fields
+     * @return array
+     */
+    protected function getGoogleMapsSearchFields()
+    {
+        $legend = $this->l('Google Maps Search');
+        return ['legend' => $legend, 'inputs' => []];
+    }
+
+    /**
      * Get Google Partners Badge Fields
      * @return array
      */
@@ -1436,6 +1507,16 @@ class k_Cookies extends Module
     }
 
     /**
+     * Get Web content (Iframe) Fields
+     * @return array
+     */
+    protected function getIssuuFields()
+    {
+        $legend = $this->l('Issuu');
+        return ['legend' => $legend, 'inputs' => []];
+    }
+
+    /**
      * Get Google jsapi Fields
      * @return array
      */
@@ -1453,6 +1534,30 @@ class k_Cookies extends Module
     {
         $legend = $this->l('Linkedin');
         return ['legend' => $legend, 'inputs' => []];
+    }
+
+
+    /**
+     * Get Matomo Fields
+     * @return array
+     */
+    protected function getMatomoFields()
+    {
+        $legend = $this->l('Matomo');
+
+        $inputs = array(
+            array(
+                'type' => 'text',
+                'label' => $this->l('Matomo ID'),
+                'name' => 'config[matomoId]',
+            ),array(
+                'type' => 'text',
+                'label' => $this->l('Matomo URL'),
+                'name' => 'config[matomoHost]',
+            ),
+        );
+
+        return ['legend' => $legend, 'inputs' => $inputs];
     }
 
     /**
@@ -1482,6 +1587,26 @@ class k_Cookies extends Module
     {
         $legend = $this->l('Microsoft Campaign Analytics');
         return ['legend' => $legend, 'inputs' => []];
+    }
+
+    /**
+     * Get Google Analytics (gtag.js) Fields
+     * @return array
+     */
+    protected function getMultipleGtagFields()
+    {
+        $legend = $this->l('Google Analytics (gtag.js) [for multiple UA]');
+
+        $inputs = array(
+            array(
+                'type' => 'text',
+                'label' => $this->l('Google Analytics UA'),
+                'name' => 'config[multiplegtagUa]',
+                'desc' => '\'UA-XXXXXXXX-X\', \'UA-XXXXXXXX-X\', \'UA-XXXXXXXX-X\'',
+            ),
+        );
+
+        return ['legend' => $legend, 'inputs' => $inputs];
     }
 
     /**
@@ -1846,6 +1971,8 @@ class k_Cookies extends Module
         $this->context->controller->registerJavascript($this->name, 'modules/'.$this->name.'/views/js/tarteaucitron.js', ['position' => 'head', 'priority' => 150]);
         $this->context->controller->registerStylesheet($this->name, 'modules/'.$this->name.'/views/css/tarteaucitron.css', ['media' => 'all', 'priority' => 150]);
 
+        Media::addJsDef(['tcdn' => $this->context->shop->getBaseURL(true).'modules/'.$this->name.'/views/js/',]);
+
         $shops = Shop::getShops();
         $is_multistore_active = Shop::isFeatureActive();
 
@@ -1859,6 +1986,7 @@ class k_Cookies extends Module
             'showAlertSmall' => Configuration::get($this->prefix.'showAlertSmall'),
             'cookieslist' => Configuration::get($this->prefix.'cookieslist'),
             'removeCredit' => Configuration::get($this->prefix.'removeCredit'),
+            'handleBrowserDNTRequest' => Configuration::get($this->prefix.'handleBrowserDNTRequest'),
             'cookieDomain' => Configuration::get($this->prefix.'cookieDomain'),
             'btnDisabledColor' => Configuration::get($this->prefix.'btnDisabledColor'),
             'btnAllowColor' => Configuration::get($this->prefix.'btnAllowColor'),

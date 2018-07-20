@@ -1,6 +1,6 @@
 # GDPR cookie bar Module 
 
-#####The master branch is reserved to 1.7, 1.6 branch is available if needed
+####The master branch is reserved to 1.7, 1.6 branch is available if needed
 
 this module allow your users to managed cookie by cookie.
 
@@ -17,14 +17,18 @@ tested on Prestashop 1.7 / php7.1 / bootstrap 4.1
 Add this line into ps_linklist module custom link if you want open modal from footer
 `javascript:tarteaucitron.userInterface.openPanel();`
 
-# Tested services
+# Services list 
 
+[x] (checked services have been verified)
 
 ###Ads 
 
 - [ ] Google Adsense
 - [ ] Google Adsense Search (form)
 - [ ] Google Adsense Search (result)
+- [ ] Ad Up Technology (ads)
+- [ ] Ad Up Technology (conversion)
+- [ ] Ad Up Technology (retargeting)
 - [ ] Amazon
 - [ ] Clicmanager
 - [ ] Criteo
@@ -53,8 +57,10 @@ Add this line into ps_linklist module custom link if you want open modal from fo
 - [ ] Google Analytics (gtag.js)
 - [x] Google Analytics (Universal)
 - [x] Hotjar
+- [ ] Matomo
 - [ ] Mautic
 - [ ] Microsoft Campaign Analytics
+- [ ] Multiple Gtag
 - [ ] StatCounter
 - [ ] VisualRevenue
 - [ ] Webmecanik
@@ -66,6 +72,7 @@ Add this line into ps_linklist module custom link if you want open modal from fo
 
 - [ ] Google jsapi
 - [ ] Google Maps
+- [ ] Google Maps Search
 - [ ] Google Tag Manager
 - [x] reCAPTCHA
 - [ ] Timeline JS
@@ -113,6 +120,7 @@ Add this line into ps_linklist module custom link if you want open modal from fo
 ###Others
 
 - [ ] Iframe
+- [ ] Issuu
 
 		
 @TODO
