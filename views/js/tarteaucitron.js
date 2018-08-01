@@ -177,6 +177,9 @@ var tarteaucitron = {
   },
   "load": function () {
     "use strict";
+    if (typeof tcdn !== 'undefined'){
+      tarteaucitron.cdn = tcdn;
+    }
     var cdn = tarteaucitron.cdn,
       pathToServices = cdn + 'tarteaucitron.services.js?v=' + tarteaucitron.version,
       defaults = {
@@ -987,6 +990,9 @@ var tarteaucitron = {
     },
     "number": function () {
       "use strict";
+      if (typeof tcdn !== 'undefined'){
+        tarteaucitron.cdn = tcdn;
+      }
       var cookies = document.cookie.split(';'),
         nb = (document.cookie !== '') ? cookies.length : 0,
         html = '',
