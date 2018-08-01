@@ -8,6 +8,7 @@
     "showAlertSmall": {if $showAlertSmall}true{else}false{/if}, /* afficher le petit bandeau en bas à droite ? */
     "cookieslist": {if $cookieslist}true{else}false{/if}, /* Afficher la liste des cookies installés ? */
     "removeCredit": {if $removeCredit}true{else}false{/if}, /* supprimer le lien vers la source ? */
+    "handleBrowserDNTRequest": {if $handleBrowserDNTRequest}true{else}false{/if}, /* Répondre au DoNotTrack du navigateur ?*/
     "cookieDomain": "{$cookieDomain}", /* Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif */
     "btnDisabledColor": "{$btnDisabledColor}",
     "btnAllowColor": "{$btnAllowColor}",
