@@ -18,7 +18,7 @@ class k_Cookies extends Module
     {
         $this->name = 'k_cookies';
         $this->tab = 'front_office_features';
-        $this->version = '1.1.1';
+        $this->version = '1.1.2';
         $this->author = 'Kadolis';
         $this->need_instance = 0;
         $this->secure_key = Tools::hash($this->name);
@@ -320,6 +320,7 @@ class k_Cookies extends Module
 
         $return .= $this->fetch($this->local_path.'/views/templates/admin/configure.tpl');
 
+        $return .= '<div class="clearfix"></div>';
         $return .= '<div class="row">';
         $return .= '<div class="tab-content col-lg-12 col-md-9">';
 
