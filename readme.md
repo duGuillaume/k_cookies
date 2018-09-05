@@ -1,27 +1,29 @@
-# GDPR cookie bar Module 
+# GDPR cookie bar Module
 
-####The master branch is reserved to 1.7, 1.6 branch is available if needed
+**The master branch is reserved to 1.7, [1.6 branch](../../tree/1.6.1.x) is available if needed**
 
-this module allow your users to managed cookie by cookie.
+This module allows your users to manage cookie by cookie.
 
-This addon has been created with tarteaucitron.js script
-https://github.com/AmauriC/tarteaucitron.js 
+This addon has been created with tarteaucitron.js script:
 
-Some services need extra contents, please read the documentation before activate any service
+https://github.com/AmauriC/tarteaucitron.js
+
+Some services need extra contents, please read the documentation before activating any service:
+
 https://opt-out.ferank.eu/en/install/
 
-This module use Material Icon
+This module uses Material Icon.
 
-tested on Prestashop 1.7 / php7.1 / bootstrap 4.1
+Tested on Prestashop 1.7 / php7.1 / bootstrap 4.1
 
 Add this line into ps_linklist module custom link if you want open modal from footer
-`javascript:tarteaucitron.userInterface.openPanel();`
+```javascript:tarteaucitron.userInterface.openPanel();```
 
-# Services list 
+# Services list
 
-[x] (checked services have been verified)
+- [x] Checked services have been verified
 
-###Ads 
+### Ads
 
 - [ ] Google Adsense
 - [ ] Google Adsense Search (form)
@@ -45,7 +47,7 @@ Add this line into ps_linklist module custom link if you want open modal from fo
 - [ ] Twenga
 - [ ] vShop
 
-###Analytics
+### Analytics
 
 - [ ] Alexa
 - [ ] Clicky
@@ -68,7 +70,7 @@ Add this line into ps_linklist module custom link if you want open modal from fo
 - [ ] Xiti
 - [ ] Xiti (SmartTag)
 
-###Apis
+### Apis
 
 - [ ] Google jsapi
 - [ ] Google Maps
@@ -78,15 +80,15 @@ Add this line into ps_linklist module custom link if you want open modal from fo
 - [ ] Timeline JS
 - [ ] Typekit (adobe)
 
-###Comments
+### Comments
 
 - [ ] Disqus
 - [ ] Facebook (commentaire)
 
-###Socials
+### Socials
 
 - [ ] AddThis
-- [ ] AddToAny (feed) 
+- [ ] AddToAny (feed)
 - [ ] ddToAny (share)
 - [ ] eKomi
 - [ ] facebook
@@ -101,13 +103,13 @@ Add this line into ps_linklist module custom link if you want open modal from fo
 - [ ] Twitter (cards)
 - [ ] Twitter (timelines)
 
-###Supports
+### Supports
 
 - [ ] PureChat
 - [ ] UserVoice
 - [ ] Zopim
 
-###Videos
+### Videos
 
 - [ ] Calameo
 - [ ] Dailymotion
@@ -117,12 +119,11 @@ Add this line into ps_linklist module custom link if you want open modal from fo
 - [ ] YouTube
 - [ ] YouTube (playlist)
 
-###Others
+### Others
 
 - [ ] Iframe
 - [ ] Issuu
 
-		
-@TODO
---------
-- [ ] change hotjar JS function to look like tarteaucitron style
+
+# TODO
+- [ ] Change hotjar JS function to look like tarteaucitron style
