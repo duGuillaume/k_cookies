@@ -10,8 +10,6 @@ https://github.com/AmauriC/tarteaucitron.js
 Some services need extra contents, please read the documentation before activating any service:
 https://opt-out.ferank.eu/en/install/
 
-This module uses Material Icon.
-
 Tested on Prestashop 1.6.1.18 / php5.6
 
 # Installation
