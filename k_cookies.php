@@ -35,6 +35,7 @@ class k_Cookies extends Module
      * install()
      *
      * @return bool
+     * @throws PrestaShopException
      */
     public function install()
     {
@@ -75,13 +76,12 @@ class k_Cookies extends Module
     {
         $ret = true;
         $services = $this->listServices();
-        foreach ($services as $key => $service){
-
+        foreach ($services as $key => $service) {
             $data = $this->createServiceData($key);
 
             $ret &= Db::getInstance()->Execute('INSERT INTO `'._DB_PREFIX_.'k_cookies` SET 
             `name` = "'. pSQL($key).'",
-            `config` = \''. json_encode (!empty($data) ? $data : new stdClass).'\',
+            `config` = \''.json_encode(!empty($data) ? $data : new stdClass).'\',
             `date_add` = NOW(),
             `date_upd` = NOW()
             ');
@@ -96,16 +96,17 @@ class k_Cookies extends Module
      * @param $service
      * @return array
      */
-    public function createServiceData($service){
+    public function createServiceData($service)
+    {
         $json = array();
         $fields = $this->{"get{$service}Fields"}();
-        foreach ($fields as $inputs){
-            if(is_array($inputs)){
-                foreach ($inputs as $field){
+        foreach ($fields as $inputs) {
+            if (is_array($inputs)) {
+                foreach ($inputs as $field) {
                     $pattern = '/config\[(\w+)\]/i';
                     $replacement = '${1}';
                     $name = preg_replace($pattern, $replacement, $field['name']);
-                    switch ($field['type']){
+                    switch ($field['type']) {
                         case 'text':
                             $json[$name] = '';
                             break;
@@ -124,23 +125,24 @@ class k_Cookies extends Module
      *
      * @return bool
      */
-    public function installConfiguration(){
-        return (bool) Configuration::updateValue($this->prefix.'CMS',0) &&
-            Configuration::updateValue($this->prefix.'hashtag','tarteaucitron') &&
-            Configuration::updateValue($this->prefix.'highPrivacy',0) &&
-            Configuration::updateValue($this->prefix.'orientation','top') &&
-            Configuration::updateValue($this->prefix.'adblocker',0) &&
-            Configuration::updateValue($this->prefix.'showAlertSmall',0) &&
-            Configuration::updateValue($this->prefix.'cookieslist',1) &&
-            Configuration::updateValue($this->prefix.'removeCredit',0) &&
-            Configuration::updateValue($this->prefix.'handleBrowserDNTRequest',0) &&
-            Configuration::updateValue($this->prefix.'cookieDomain','') &&
-            Configuration::updateValue($this->prefix.'btnDisabledColor','#808080') &&
-            Configuration::updateValue($this->prefix.'btnAllowColor','#1B870B') &&
-            Configuration::updateValue($this->prefix.'btnDenyColor','#9C1A1A') &&
-            Configuration::updateValue($this->prefix.'btnAllDisabledColor','#808080') &&
-            Configuration::updateValue($this->prefix.'btnAllAllowedColor','#1B870B') &&
-            Configuration::updateValue($this->prefix.'btnAllDeniedColor','#9C1A1A');
+    public function installConfiguration()
+    {
+        return (bool) Configuration::updateValue($this->prefix.'CMS', 0) &&
+            Configuration::updateValue($this->prefix.'hashtag', 'tarteaucitron') &&
+            Configuration::updateValue($this->prefix.'highPrivacy', 0) &&
+            Configuration::updateValue($this->prefix.'orientation', 'top') &&
+            Configuration::updateValue($this->prefix.'adblocker', 0) &&
+            Configuration::updateValue($this->prefix.'showAlertSmall', 0) &&
+            Configuration::updateValue($this->prefix.'cookieslist', 1) &&
+            Configuration::updateValue($this->prefix.'removeCredit', 0) &&
+            Configuration::updateValue($this->prefix.'handleBrowserDNTRequest', 0) &&
+            Configuration::updateValue($this->prefix.'cookieDomain', '') &&
+            Configuration::updateValue($this->prefix.'btnDisabledColor', '#808080') &&
+            Configuration::updateValue($this->prefix.'btnAllowColor', '#1B870B') &&
+            Configuration::updateValue($this->prefix.'btnDenyColor', '#9C1A1A') &&
+            Configuration::updateValue($this->prefix.'btnAllDisabledColor', '#808080') &&
+            Configuration::updateValue($this->prefix.'btnAllAllowedColor', '#1B870B') &&
+            Configuration::updateValue($this->prefix.'btnAllDeniedColor', '#9C1A1A');
     }
 
     /**
@@ -175,12 +177,13 @@ class k_Cookies extends Module
      *
      * @return bool
      */
-    public function uninstallDB(){
+    public function uninstallDB()
+    {
         return Db::getInstance()->execute('DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'k_cookies`');
     }
 
     /**
-     * List all availables services from tarteaucitron.services.js
+     * List all available services from tarteaucitron.services.js
      * @return array
      */
     public function listServices()
@@ -205,7 +208,7 @@ class k_Cookies extends Module
     public function getContent()
     {
         if (Tools::isSubmit('submitConfiguration') ||
-            Tools::isSubmit('submitService')){
+            Tools::isSubmit('submitService')) {
             $this->_html .= $this->_postProcess();
         }
 
@@ -400,12 +403,12 @@ class k_Cookies extends Module
             Configuration::updateValue($this->prefix.'removeCredit', Tools::getValue($this->prefix.'removeCredit'));
             Configuration::updateValue($this->prefix.'handleBrowserDNTRequest', Tools::getValue($this->prefix.'handleBrowserDNTRequest'));
             Configuration::updateValue($this->prefix.'cookieDomain', Tools::getValue($this->prefix.'cookieDomain'));
-            Configuration::updateValue($this->prefix.'btnDisabledColor', Tools::getValue($this->prefix.'btnDisabledColor','#808080'));
-            Configuration::updateValue($this->prefix.'btnAllowColor', Tools::getValue($this->prefix.'btnAllowColor','#1B870B'));
-            Configuration::updateValue($this->prefix.'btnDenyColor', Tools::getValue($this->prefix.'btnDenyColor','#9C1A1A'));
-            Configuration::updateValue($this->prefix.'btnAllDisabledColor', Tools::getValue($this->prefix.'btnAllDisabledColor','#808080'));
-            Configuration::updateValue($this->prefix.'btnAllAllowedColor', Tools::getValue($this->prefix.'btnAllAllowedColor','#1B870B'));
-            Configuration::updateValue($this->prefix.'btnAllDeniedColor', Tools::getValue($this->prefix.'btnAllDeniedColor','#9C1A1A'));
+            Configuration::updateValue($this->prefix.'btnDisabledColor', Tools::getValue($this->prefix.'btnDisabledColor', '#808080'));
+            Configuration::updateValue($this->prefix.'btnAllowColor', Tools::getValue($this->prefix.'btnAllowColor', '#1B870B'));
+            Configuration::updateValue($this->prefix.'btnDenyColor', Tools::getValue($this->prefix.'btnDenyColor', '#9C1A1A'));
+            Configuration::updateValue($this->prefix.'btnAllDisabledColor', Tools::getValue($this->prefix.'btnAllDisabledColor', '#808080'));
+            Configuration::updateValue($this->prefix.'btnAllAllowedColor', Tools::getValue($this->prefix.'btnAllAllowedColor', '#1B870B'));
+            Configuration::updateValue($this->prefix.'btnAllDeniedColor', Tools::getValue($this->prefix.'btnAllDeniedColor', '#9C1A1A'));
         }
 
         if (Tools::isSubmit('submitService')) {
@@ -442,7 +445,7 @@ class k_Cookies extends Module
             );
         }
         // get CMS pages
-        $CMS = CMS::getCMSPages( $this->context->language->id, null, false, $this->context->shop->id);
+        $CMS = CMS::getCMSPages($this->context->language->id, null, false, $this->context->shop->id);
 
         $orientation_options = array(
             array(
@@ -474,7 +477,7 @@ class k_Cookies extends Module
                         'type' => 'text',
                         'label' => $this->l('Hashtag'),
                         'name' => $this->prefix.'hashtag',
-                        'hint' =>$this->l('Ouverture automatique du panel avec le hashtag'),
+                        'hint' => $this->l('Ouverture automatique du panel avec le hashtag'),
                         'required' => true,
                     ),
                     array(
@@ -613,7 +616,7 @@ class k_Cookies extends Module
                         'type' => 'text',
                         'label' => $this->l('Cookie Domain'),
                         'name' => $this->prefix.'cookieDomain',
-                        'hint' =>$this->l('Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif'),
+                        'hint' => $this->l('Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif'),
                     ),
                     array(
                         'type' => 'color',
@@ -647,7 +650,7 @@ class k_Cookies extends Module
                     ),
                 ),
                 'submit' => array(
-                    'title' =>$this->l('Save'),
+                    'title' => $this->l('Save'),
                 ),
             ),
         );
@@ -683,9 +686,9 @@ class k_Cookies extends Module
         $helper->identifier = $this->identifier;
         $helper->submit_action = 'submitConfiguration';
         $helper->currentIndex = $this->context->link->getAdminLink(
-                'AdminModules',
-                false
-            ).'&configure='.$this->name.'&module_name='.$this->name;
+            'AdminModules',
+            false
+        ).'&configure='.$this->name.'&module_name='.$this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
         $helper->tpl_vars = array(
             'fields_value' => $fields_value,
@@ -739,7 +742,7 @@ class k_Cookies extends Module
                 'legend' => array(
                     'title' => $legend,
                 ),
-                'input' => array_merge($inputs,$consts),
+                'input' => array_merge($inputs, $consts),
                 'submit' => array(
                     'title' => $this->l('Save', array(), 'Admin.Actions'),
                 ),
@@ -750,7 +753,7 @@ class k_Cookies extends Module
 
         $cookie = CookieClass::getCookieByName($service);
         $configs = json_decode($cookie->config);
-        foreach ($configs as $key => $config){
+        foreach ($configs as $key => $config) {
             $fields_value['config['.$key.']'] = $config;
         }
 
@@ -769,9 +772,9 @@ class k_Cookies extends Module
         $helper->identifier = $this->identifier;
         $helper->submit_action = 'submitService';
         $helper->currentIndex = $this->context->link->getAdminLink(
-                'AdminModules',
-                false
-            ).'&configure='.$this->name.'&module_name='.$this->name;
+            'AdminModules',
+            false
+        ).'&configure='.$this->name.'&module_name='.$this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
         $helper->tpl_vars = array(
             'fields_value' => $fields_value,
@@ -1212,7 +1215,6 @@ class k_Cookies extends Module
         );
 
         return ['legend' => $legend, 'inputs' => $inputs];
-
     }
 
     /**
@@ -1535,7 +1537,6 @@ class k_Cookies extends Module
         $legend = $this->l('Linkedin');
         return ['legend' => $legend, 'inputs' => []];
     }
-
 
     /**
      * Get Matomo Fields
@@ -2005,7 +2006,7 @@ class k_Cookies extends Module
 
         $return = $this->display(dirname(__FILE__), 'k_cookies.script.tpl');
         $script = '<script>';
-        foreach ($services as $service){
+        foreach ($services as $service) {
             $script .= $this->displayService($service);
         }
         $script .= '</script>';
@@ -2020,7 +2021,7 @@ class k_Cookies extends Module
     public function displayService($service)
     {
         $configs = json_decode($service['config']);
-        foreach($configs as $key => $config){
+        foreach ($configs as $key => $config) {
             $this->smarty->assign(array($key => $config));
         }
 
@@ -2035,5 +2036,4 @@ class k_Cookies extends Module
     {
         return $this->display(dirname(__FILE__), '/views/templates/front/customerAccount.tpl');
     }
-
 }

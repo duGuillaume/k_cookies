@@ -2,7 +2,6 @@
 
 class Validate extends ValidateCore
 {
-
     /**
      * Check if $string is a valid JSON string
      *

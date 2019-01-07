@@ -2,7 +2,6 @@
 
 class CookieClass extends ObjectModel
 {
-
     /** @var string Config */
     public $config;
 
@@ -35,27 +34,28 @@ class CookieClass extends ObjectModel
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
-    public static function getCookieByName($name){
-        $getID = Db::getInstance()->getValue('SELECT id_cookie FROM `' . _DB_PREFIX_ .self::$definition['table'].'` WHERE `name` = "'.pSQL($name).'"');
+    public static function getCookieByName($name)
+    {
+        $getID = Db::getInstance()->getValue('SELECT id_cookie FROM `'._DB_PREFIX_.self::$definition['table'].'` WHERE `name` = "'.pSQL($name).'"');
         return new CookieClass($getID);
     }
 
     /**
-     * Return availables cookies
+     * Return available cookies
      *
      * @param bool $active
      * @return array|false|mysqli_result|null|PDOStatement|resource
      * @throws PrestaShopDatabaseException
      */
-    public static function getAllCookies($active = true){
+    public static function getAllCookies($active = true)
+    {
         $cookies = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS('
             SELECT c.`id_cookie`, c.`name`, c.`config`, c.`active`
-            FROM ' . _DB_PREFIX_ . 'k_cookies c
+            FROM `'._DB_PREFIX_.self::$definition['table'].'` c
             WHERE 1 = 1 '.
             ($active ? ' AND c.`active` = 1' : ' ')
         );
 
         return $cookies;
     }
-
 }
